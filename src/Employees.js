@@ -3,11 +3,20 @@ import Employee from "./Employee";
 
 function Employees({ list }) {
     return (
-        <div className="container">
-            {list.map(element => (
-                <Employee employee={element} />
-            ))}
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Team</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                {list.map(element => (
+                    <Employee key={element.id} employee={element} />
+                ))}
+            </tbody>
+        </table>
     );
 }
 

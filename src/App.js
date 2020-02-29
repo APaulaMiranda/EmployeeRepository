@@ -1,35 +1,72 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from "react";
 import './App.css';
 import Employees from './Employees';
 
-function App() {
+let users = [{
+  "name": "John Doe",
+  "id": 0,
+  "team": "Transformation",
+  "country": "Andorra"
+},
+{
+  "name": "Jane Bla",
+  "id": 1,
+  "team": "Finance",
+  "country": "Monaco"
+},
+{
+  "name": "Pikachu",
+  "id": 2,
+  "team": "Fire Gym",
+  "country": "Kanto"
+}];
 
-  let users = [{
-    "name": "John Doe"
-  },
-  {
-    "name": "Jane Doe"
-  }]
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Employee Directory
-        </a>
-      </header>
-      <Employees list={users} />
-    </div>
-  );
+
+class App extends Component {
+
+  state = {
+    search: "",
+    users: users
+  }
+
+  filterUsers = event => {
+    var value = event.target.value;
+    let filteredUsers = users.filter(user => user.name.toLocaleLowerCase()
+      .includes(value.toLocaleLowerCase()));
+
+    this.setState({
+      search: value,
+      users: filteredUsers
+    });
+  }
+
+  orderUsers = event => {
+    var value = event.target.value;
+    let filteredUsers = users.sort(user => user.team.toLocaleLowerCase()
+      .includes(value.toLocaleLowerCase()));
+
+    this.setState({
+      search: value,
+      users: filteredUsers
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <form className="main form my-3 p-3 bg-white rounded box-shadow container">
+          <input
+            className="form-control"
+            name="search"
+            onChange={this.filterUsers}
+            type="text"
+            placeholder="Search Employee..."
+          />
+        </form>
+        <Employees list={this.state.users} />
+      </div>
+    );
+  }
 }
 
 export default App;

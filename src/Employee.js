@@ -3,11 +3,17 @@ import React from "react";
 function Employee({ employee }) {
     return (
 
-        <div className="row">
-            <div className="col-3">
+        <tr>
+            <td>
                 {employee.name}
-            </div>
-        </div>
+            </td>
+            <td>
+                {employee.team}
+            </td>
+            <td>
+                {employee.country}
+            </td>
+        </tr>
     );
 }
 
